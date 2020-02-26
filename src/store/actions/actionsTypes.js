@@ -1,0 +1,6 @@
+export const UPD_FIELD = 'UPD_FIELD'
+export const CHANGE_RATE = 'CHANGE_RATE'
+export const CHANGE_BALANCE = 'CHANGE_BALANCE'
+export const SET_WIN = 'SET_WIN'
+export const RESET_WIN = 'RESET_WIN'
+export const CHANGE_LAST_PRIZE = 'CHANGE_LAST_PRIZE'

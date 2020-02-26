@@ -2,23 +2,128 @@
   text-align: center;
   width: 100%;
   height: 100vh;
-  max-width: 768px;
   margin: 0 auto;
-  background-color: aquamarine;
+  background: center / cover no-repeat url(assets/background.jpg) #74467a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .wrapper {
+    padding: 25px;
+    border-radius: 25px;
+    backdrop-filter: blur(4px);
+    background: rgba(171, 0, 255, 0.2);
+  }
 
   .field {
     display: grid;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: auto;
-    margin: 0 auto;
+    width: 450px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 150px;
+    grid-gap: 10px;
+
+    .Slot {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: solid 2px #74467a;
+      color: #fff;
+      border-radius: 15px;
+      background-size: cover;
+    }
+
+    .Slot.Win {
+      border-color: red;
+      // background-color: wheat;
+      color: red;
+    }
+    .quil {
+      background-image: url(assets/quil.png);
+    }
+    .gamora {
+      background-image: url(assets/gamora.png);
+    }
+    .rocket {
+      background-image: url(assets/rocket.png);
+    }
+    .groot {
+      background-image: url(assets/groot.png);
+    }
+    .nebula {
+      background-image: url(assets/nebula.png);
+    }
+    .drax {
+      background-image: url(assets/drax.png);
+    }
+    .mantis {
+      background-image: url(assets/mantis.png);
+    }
+    .yondu {
+      background-image: url(assets/yondu.png);
+    }
+  }
+
+  .Panel {
     width: 100%;
+    max-width: 450px;
 
-    div {
-      height: 150px;
+    .Info {
+      display: grid;
+      grid-template-columns: repeat(3, 33%);
+      color: #e5cae9;
+    }
 
-      img {
-        width: 100px;
-        height: 100px;
+    .Rate {
+      display: flex;
+      align-items: center;
+
+      .rate-btn {
+        width: 70px;
+        height: 35px;
+        border: 2px solid #d1bce7;
+        border-radius: 25px;
+        padding: 0;
+        color: white;
+        outline: none;
+        background: rgba(46, 111, 159, 0.6);
+
+        &:active {
+          border-color:#74467a;
+        }
+      }
+
+      input {
+        width: 100%;
+        text-align: center;
+        background: transparent;
+        border: none;
+        color: white;
+        padding-left: 0.8rem;
+        color: #e5cae9;
+        outline: none;
+      }
+
+    }
+
+    .btn {
+      width: 100%;
+      width: 100%;
+      margin-top: 25px;
+      border: 2px solid rgb(209, 188, 231);
+      border-radius: 25px;
+      padding: 10px;
+      color: white;
+      outline: none;
+      background: rgba(46, 111, 159, 0.6);
+
+      &:hover {
+        box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.3);
+        background: rgba(46, 111, 159, 0.8);
+      }
+
+      &:active {
+        border-color:#74467a;
       }
     }
   }
