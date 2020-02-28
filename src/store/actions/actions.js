@@ -1,11 +1,86 @@
-import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE } from "./actionsTypes";
+import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN} from "./actionsTypes";
 
-export function updateField(allPossibilities) { 
-  return {
-    type: UPD_FIELD,
-    payload: allPossibilities
+export function spin(rate, balance) {
+  return (dispatch, getState) => {   
+    const allValues =  getState().field.allPossibilities
+    const slotSpins =  getState().panel.spin
+
+    let newField = [ 
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)],
+      allValues[Math.floor(Math.random() * 8)]
+    ]
+    
+    if (rate > balance) {
+      return null
+    } else if (slotSpins.third) {
+      dispatch(stopSpinAllColumns())
+    } else {
+      dispatch(resetWinners())
+      dispatch(startSpin())
+      console.log('ddddd', slotSpins);
+      
+      dispatch(changeBalance(-rate))
+      dispatch(updateField(newField))
+      dispatch(checkWinners())
+
+      // setTimeout(() => {
+      //   dispatch(stopSpinFirstColumn())
+      // }, 1000)
+      // setTimeout(() => {
+      //   dispatch(stopSpinSecondColumn())
+      // }, 2000)
+      // setTimeout(() => {
+      //   dispatch(stopSpinThirdColumn())
+      // }, 3000)
+
+
+      function spinner(time, spin) {
+      
+          if (!spin.first) {
+            console.log('spinner', spin);
+            let promise = new Promise(function(resolve, reject) {
+              setTimeout(() => {
+                dispatch(stopSpinFirstColumn())
+                resolve(time)
+                console.log('spinner1', !slotSpins.first);
+                console.log('spinner2', spin);
+              }, 1500)
+            }) 
+            return promise
+          }
+
+      }
+          function timeout(func, spin) {
+            if (!spin) {
+              console.log('timeout', spin);
+              return new Promise(function (resolve, reject) {
+                setTimeout(() => {
+                  resolve(dispatch(func()))
+                  console.log('timeout1', spin);
+                }, 1000)
+              })
+            }
+          }
+      
+
+    spinner(2000, slotSpins)
+      .then(() => timeout(stopSpinSecondColumn, slotSpins.second))
+      .then(() => timeout(stopSpinThirdColumn, slotSpins.third))
+    }
   }
 }
+
+
+
+
+
 
 export function changeRate(num) {
   return {
@@ -14,48 +89,73 @@ export function changeRate(num) {
   }
 }
 
-export function changeBalance(rate) {
+function updateField(array) { 
   return {
-    type: CHANGE_BALANCE,
-    payload: rate
+    type: UPD_FIELD,
+    payload: array
   }
 }
 
-export function changeLastPrize(prize) {
+function changeBalance(num) {
+  return {
+    type: CHANGE_BALANCE,
+    payload: num
+  }
+}
+
+function changeLastPrize(prize) {
   return {
     type: CHANGE_LAST_PRIZE,
     payload: prize
   }
 }
 
-export function spin(allPossibilities, rate, balance) {
-  return dispatch => {
-    if (rate > balance) {
-      return null
-    } else {
-      dispatch(resetWinnersBeforeSpin())
-      dispatch(changeBalance(-rate))
-      dispatch(updateField(allPossibilities))
-      dispatch(checkWinners())
-    }
-  }
-}
-
-export function setWinner(...names) {
+function setWinner(...names) {
   return {
     type: SET_WIN,
     payload: names
   }
 } 
 
-export function resetWinners(...names) {
+function resetWinners() {
   return {
-    type: RESET_WIN,
-    payload: names
+    type: RESET_WIN
   }
 } 
 
-export function checkWinners() {
+function startSpin() {
+  return {
+    type: START_SPIN
+  }
+} 
+
+function stopSpinAllColumns() {
+  return dispatch => {
+    dispatch(stopSpinFirstColumn())
+    dispatch(stopSpinSecondColumn())
+    dispatch(stopSpinThirdColumn())
+  }
+} 
+
+function stopSpinFirstColumn() {
+  return {
+    type: STOP_SPIN_FIRST_COLUMN
+  }
+}
+
+function stopSpinSecondColumn() {
+  return {
+    type: STOP_SPIN_SECOND_COLUMN
+  }
+}
+
+function stopSpinThirdColumn() {
+  return {
+    type: STOP_SPIN_THIRD_COLUMN
+  }
+}
+
+function checkWinners() {
   return (dispatch, getState) => {
     const slots = getState().field.slots
     const rate = getState().panel.rate
@@ -63,42 +163,42 @@ export function checkWinners() {
     let quantity = 0
 
     if (slots[key[0]].value === slots[key[1]].value && slots[key[1]].value === slots[key[2]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('FIRST line win!')
       dispatch(setWinner(slots[key[0]].name, slots[key[1]].name, slots[key[2]].name))
     }
     if (slots[key[3]].value === slots[key[4]].value && slots[key[4]].value === slots[key[5]].value) {
       console.log('SECOND line win!')
-      quantity = quantity + 1;
+      quantity = quantity + 1
       dispatch(setWinner(slots[key[3]].name, slots[key[4]].name, slots[key[5]].name))
     }
     if (slots[key[6]].value === slots[key[7]].value && slots[key[7]].value === slots[key[8]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('THIRD line win!')
       dispatch(setWinner(slots[key[6]].name, slots[key[7]].name, slots[key[8]].name))
     }
     if (slots[key[0]].value === slots[key[3]].value && slots[key[3]].value === slots[key[6]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('FIRST column win!')
       dispatch(setWinner(slots[key[0]].name, slots[key[3]].name, slots[key[6]].name))
     }
     if (slots[key[1]].value === slots[key[4]].value && slots[key[4]].value === slots[key[7]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('SECOND column win!')
       dispatch(setWinner(slots[key[1]].name, slots[key[4]].name, slots[key[7]].name))
     }
     if (slots[key[2]].value === slots[key[5]].value && slots[key[5]].value === slots[key[8]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('THIRD column win!')
       dispatch(setWinner(slots[key[2]].name, slots[key[5]].name, slots[key[8]].name))
     }
     if (slots[key[0]].value === slots[key[4]].value && slots[key[4]].value === slots[key[8]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('LEFT-TO-RIGHT diagonal win!')
       dispatch(setWinner(slots[key[0]].name, slots[key[4]].name, slots[key[8]].name))
     }
     if (slots[key[2]].value === slots[key[4]].value && slots[key[4]].value === slots[key[6]].value) {
-      quantity = quantity + 1;
+      quantity = quantity + 1
       console.log('RIGHT-TO-LEFT diagonal win!')
       dispatch(setWinner(slots[key[2]].name, slots[key[4]].name, slots[key[6]].name))
     }
@@ -110,13 +210,5 @@ export function checkWinners() {
       dispatch(changeBalance(prize))
       dispatch(changeLastPrize(prize))
     }
-  }
-}
-
-export function resetWinnersBeforeSpin() {
-  return (dispatch, getState) => {
-    const slots = getState().field.slots
-    const keys = Object.keys(slots)
-    dispatch(resetWinners(...keys))
   }
 }

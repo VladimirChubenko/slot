@@ -16,25 +16,20 @@ const initialState = {
 }
 
 export default function fieldReducer(state = initialState, action) {
-
-  function getRandom() {
-    return Math.floor(Math.random() * 6);
-  }
-
   switch(action.type) {
     case UPD_FIELD:
       return {
         ...state,
         slots: {
-          first: {...state.slots.first, value: action.payload[getRandom()]},
-          second: {...state.slots.second, value: action.payload[getRandom()]},
-          third: {...state.slots.third, value: action.payload[getRandom()]},
-          fourth: {...state.slots.fourth, value: action.payload[getRandom()]},
-          fifth: {...state.slots.fifth, value: action.payload[getRandom()]},
-          sixth: {...state.slots.sixth, value: action.payload[getRandom()]},
-          seventh: {...state.slots.seventh, value: action.payload[getRandom()]},
-          eighth: {...state.slots.eighth, value: action.payload[getRandom()]},
-          ninth: {...state.slots.ninth, value: action.payload[getRandom()]}
+          first: {...state.slots.first, value: action.payload[0]},
+          second: {...state.slots.second, value: action.payload[1]},
+          third: {...state.slots.third, value: action.payload[2]},
+          fourth: {...state.slots.fourth, value: action.payload[3]},
+          fifth: {...state.slots.fifth, value: action.payload[4]},
+          sixth: {...state.slots.sixth, value: action.payload[5]},
+          seventh: {...state.slots.seventh, value: action.payload[6]},
+          eighth: {...state.slots.eighth, value: action.payload[7]},
+          ninth: {...state.slots.ninth, value: action.payload[8]}
         }
       }
     case SET_WIN: 
@@ -52,15 +47,15 @@ export default function fieldReducer(state = initialState, action) {
         ...state,
         slots: {
           ...state.slots,
-          [action.payload[0]]: {...state.slots[action.payload[0]], winner: false},
-          [action.payload[1]]: {...state.slots[action.payload[1]], winner: false},
-          [action.payload[2]]: {...state.slots[action.payload[2]], winner: false},
-          [action.payload[3]]: {...state.slots[action.payload[3]], winner: false},
-          [action.payload[4]]: {...state.slots[action.payload[4]], winner: false},
-          [action.payload[5]]: {...state.slots[action.payload[5]], winner: false},
-          [action.payload[6]]: {...state.slots[action.payload[6]], winner: false},
-          [action.payload[7]]: {...state.slots[action.payload[7]], winner: false},
-          [action.payload[8]]: {...state.slots[action.payload[8]], winner: false}
+          first: {...state.slots.first, winner: false},
+          second: {...state.slots.second, winner: false},
+          third: {...state.slots.third, winner: false},
+          fourth: {...state.slots.fourth, winner: false},
+          fifth: {...state.slots.fifth, winner: false},
+          sixth: {...state.slots.sixth, winner: false},
+          seventh: {...state.slots.seventh, winner: false},
+          eighth: {...state.slots.eighth, winner: false},
+          ninth: {...state.slots.ninth, winner: false}
         }
       }
     default: 

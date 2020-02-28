@@ -5,15 +5,15 @@ import {Slot} from '../components/slot'
 function Field(props) {
   return (
     <div className="field">
-      <Slot slot={props.slots.first} />
-      <Slot slot={props.slots.second} />
-      <Slot slot={props.slots.third} />
-      <Slot slot={props.slots.fourth} />
-      <Slot slot={props.slots.fifth} />
-      <Slot slot={props.slots.sixth} />
-      <Slot slot={props.slots.seventh} />
-      <Slot slot={props.slots.eighth} />
-      <Slot slot={props.slots.ninth} />
+      <Slot slot={props.slots.first} spin={props.spin.first}/>
+      <Slot slot={props.slots.second} spin={props.spin.second}/>
+      <Slot slot={props.slots.third} spin={props.spin.third}/>
+      <Slot slot={props.slots.fourth} spin={props.spin.first}/>
+      <Slot slot={props.slots.fifth} spin={props.spin.second}/>
+      <Slot slot={props.slots.sixth} spin={props.spin.third}/>
+      <Slot slot={props.slots.seventh} spin={props.spin.first}/>
+      <Slot slot={props.slots.eighth} spin={props.spin.second}/>
+      <Slot slot={props.slots.ninth} spin={props.spin.third}/>
   </div>
   )
 }
@@ -21,7 +21,8 @@ function Field(props) {
 
 function mapStateToProps(state) {
   return {
-    slots: state.field.slots
+    slots: state.field.slots,
+    spin: state.panel.spin
   }
 }
 

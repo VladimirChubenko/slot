@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {spin, changeRate, resetWinnersBeforeSpin} from '../store/actions/actions'
+import {spin, changeRate} from '../store/actions/actions'
 import {Info} from '../components/info'
 import {Rate} from '../components/rate'
 
@@ -12,7 +12,7 @@ function Panel(props) {
         <Rate rate={props.rate} changeRate={props.changeRate}/>
         <Info name="Balance" value={props.balance}/>
       </div>
-      <button className="btn" onClick={() => props.spin(props.allPossibilities, props.rate, props.balance)}>SPIN</button>
+      <button className="btn" onClick={() => props.spin(props.rate, props.balance)}>SPIN</button>
     </div>
   )
 }
@@ -28,9 +28,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) { 
   return {
-    spin: (allPossibilities, rate, balance) => dispatch(spin(allPossibilities, rate, balance)),
-    changeRate: (num) => dispatch(changeRate(num)),
-    resetWinnersBeforeSpin: () => dispatch(resetWinnersBeforeSpin())
+    spin: (rate, balance) => dispatch(spin(rate, balance)),
+    changeRate: (num) => dispatch(changeRate(num))
   }
 }
 

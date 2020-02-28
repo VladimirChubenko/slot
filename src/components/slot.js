@@ -1,4 +1,5 @@
 import React from 'react'
+import {Spin} from './spin'
 
 export function Slot(props) { 
   const slotClasses = ['Slot', props.slot.value]
@@ -8,10 +9,15 @@ export function Slot(props) {
   }
   
   return (
-    <div 
-      className={slotClasses.join(' ')}
-    >
-      {props.slot.winner ? props.slot.value : null}
-    </div>
+    <>
+    {props.spin
+     ? <Spin />
+     :  <div 
+          className={slotClasses.join(' ')}
+        >
+          {props.slot.winner ? props.slot.value : null}
+        </div>
+    }
+    </>
   )
 }
