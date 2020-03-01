@@ -1,7 +1,7 @@
 import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN} from "./actionsTypes";
 
 export function spin(rate, balance) {
-  return async (dispatch, getState) => {   
+  return (dispatch, getState) => {   
     const allValues =  getState().field.allPossibilities
     const slotSpins =  getState().panel.spin
 
@@ -26,24 +26,14 @@ export function spin(rate, balance) {
       dispatch(startSpin())
       dispatch(changeBalance(-rate))
       dispatch(updateField(newField))
-
-      await stopColumn(stopSpinFirstColumn).then(result => dispatch(result))
-      await stopColumn(stopSpinSecondColumn).then(result => dispatch(result))
-      await stopColumn(stopSpinThirdColumn).then(result => dispatch(result))
-
       dispatch(checkWinners())
-
-      console.log('eee');
-      
+      setTimeout(() => dispatch(stopSpinFirstColumn()), 750)
+      setTimeout(() => dispatch(stopSpinSecondColumn()), 1500)
+      setTimeout(() => dispatch(stopSpinThirdColumn()), 2250)
     }
   }
 }
 
-let stopColumn = func => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(func()), 750)
-  })
-}
 
 export function changeRate(num) {
   return {
