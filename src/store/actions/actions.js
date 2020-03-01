@@ -1,4 +1,4 @@
-import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN} from "./actionsTypes";
+import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN, HIDE_MODAL_PRIZE, SHOW_MODAL_PRIZE} from "./actionsTypes";
 
 export function spin(rate, balance) {
   return async (dispatch, getState) => {   
@@ -118,6 +118,18 @@ function stopSpinThirdColumn() {
   }
 }
 
+function showModalPrize() {
+  return {
+    type: SHOW_MODAL_PRIZE
+  }
+}
+
+export function hideModalPrize() {
+  return {
+    type: HIDE_MODAL_PRIZE
+  }
+}
+
 function checkWinners() {
   return (dispatch, getState) => {
     const slots = getState().field.slots
@@ -169,9 +181,10 @@ function checkWinners() {
 
     if (quantity !== 0) {
       const prize = quantity*rate*7
-      console.log('prize: ', prize);
+      console.log('prize: ', prize)
       dispatch(changeBalance(prize))
       dispatch(changeLastPrize(prize))
+      dispatch(showModalPrize())
     }
   }
 }

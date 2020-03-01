@@ -12,7 +12,7 @@ const initialState = {
     seventh: {value: 'mantis', name: 'seventh', winner: false},
     eighth: {value: 'yondu', name: 'eighth', winner: false},
     ninth: {value: 'quil', name: 'ninth', winner: false}
-  },
+  }
 }
 
 export default function fieldReducer(state = initialState, action) {
