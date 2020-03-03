@@ -1,7 +1,7 @@
 import React from 'react'
 import CountUp from 'react-countup'
 import {connect} from 'react-redux'
-import {hideModalPrize} from '../store/actions/actions'
+import {hideModalPrize, stopBonusSound} from '../store/actions/actions'
 
 export function Prize(props) {
 
@@ -16,7 +16,10 @@ export function Prize(props) {
   return (
     <div className="Prize">
       <h1>
-        <CountUp end={props.prize} />
+        <CountUp 
+          end={props.prize} 
+          onEnd={props.stopSound}
+        />
       </h1>
     </div>
   )
@@ -31,6 +34,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) { 
   return {
     stop: () => dispatch(hideModalPrize()),
+    stopSound: () => dispatch(stopBonusSound())
   }
 }
 

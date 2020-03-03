@@ -3,7 +3,7 @@ import {CHANGE_RATE, CHANGE_BALANCE, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FI
 const initialState = {
   lastWin: 0,
   balance: 10000,
-  rate: 10,
+  rate: 30,
   button: true,
   win: false,
   spin: {

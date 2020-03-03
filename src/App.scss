@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&display=swap&subset=cyrillic,cyrillic-ext,latin-ext');
+
 .App {
   text-align: center;
   width: 100%;
@@ -82,6 +84,10 @@
     h1 {
       color: yellow;
       z-index: 2;
+      background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #0B2349;
     }
   }
 
@@ -99,6 +105,10 @@
     .Rate {
       display: flex;
       align-items: center;
+
+      input {
+        font-weight: bold;
+      }
 
       .rate-btn {
         width: 70px;
@@ -145,6 +155,12 @@
 
       &:active {
         border-color:#74467a;
+      }
+      &:disabled {
+        background-color: transparent;
+        &:hover {
+          box-shadow: none;
+        }
       }
     }
   }

@@ -12,7 +12,11 @@ function Panel(props) {
         <Rate rate={props.rate} changeRate={props.changeRate}/>
         <Info name="Balance" value={props.balance}/>
       </div>
-      <button className="btn" onClick={() => props.spin(props.rate, props.balance)}>SPIN</button>
+      <button 
+        className="btn" 
+        onClick={() => props.spin(props.rate, props.balance)}
+        disabled={props.disabled ? true : false}
+      >SPIN</button>
     </div>
   )
 }
@@ -22,7 +26,8 @@ function mapStateToProps(state) {
     allPossibilities: state.field.allPossibilities,
     lastWin: state.panel.lastWin,
     rate: state.panel.rate,
-    balance: state.panel.balance
+    balance: state.panel.balance,
+    disabled: state.panel.spin.third
   }
 }
 

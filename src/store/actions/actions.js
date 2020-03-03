@@ -1,36 +1,40 @@
-import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN, HIDE_MODAL_PRIZE, SHOW_MODAL_PRIZE} from "./actionsTypes";
+import { SET_WIN, UPD_FIELD, CHANGE_RATE, CHANGE_BALANCE, RESET_WIN, CHANGE_LAST_PRIZE, 
+  START_SPIN, STOP_SPIN_FIRST_COLUMN, STOP_SPIN_SECOND_COLUMN, STOP_SPIN_THIRD_COLUMN, 
+  PLAY_FIRST_STOP_SOUND, PLAY_SECOND_STOP_SOUND, PLAY_THIRD_STOP_SOUND, RESET_STOP_SOUNDS, PLAY_BONUS_SOUND, STOP_BONUS_SOUND, 
+  HIDE_MODAL_PRIZE, SHOW_MODAL_PRIZE} from "./actionsTypes";
 
 export function spin(rate, balance) {
   return async (dispatch, getState) => {   
     const allValues =  getState().field.allPossibilities
-    const slotSpins =  getState().panel.spin
 
     let newField = [ 
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)],
-      allValues[Math.floor(Math.random() * 8)]
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)],
+      allValues[Math.floor(Math.random() * 3)]
     ]
     
     if (rate > balance) {
       return null
-    } else if (slotSpins.third) {
-      setTimeout(() => dispatch(stopSpinAllColumns()), 500)
     } else {
+      dispatch(resetModal())
       dispatch(resetWinners())
       dispatch(startSpin())
       dispatch(changeBalance(-rate))
       dispatch(updateField(newField))
-
+      
       await stopColumn(stopSpinFirstColumn).then(result => dispatch(result))
+      dispatch(siglePlay(firstColumnStopSound))
       await stopColumn(stopSpinSecondColumn).then(result => dispatch(result))
+      dispatch(siglePlay(secondColumnStopSound))
       await stopColumn(stopSpinThirdColumn).then(result => dispatch(result))
-
+      dispatch(siglePlay(thirdColumnStopSound))
+      
       dispatch(checkWinners())
 
       console.log('eee');
@@ -41,7 +45,7 @@ export function spin(rate, balance) {
 
 let stopColumn = func => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(func()), 750)
+    setTimeout(() => resolve(func()), 1000)
   })
 }
 
@@ -118,6 +122,8 @@ function stopSpinThirdColumn() {
   }
 }
 
+// PRIZE
+
 function showModalPrize() {
   return {
     type: SHOW_MODAL_PRIZE
@@ -129,6 +135,57 @@ export function hideModalPrize() {
     type: HIDE_MODAL_PRIZE
   }
 }
+
+function resetModal() {
+  return dispatch => {
+    dispatch(hideModalPrize())
+    dispatch(stopBonusSound())
+  }
+}
+
+// SOUNDS
+
+function firstColumnStopSound() {
+  return {
+    type: PLAY_FIRST_STOP_SOUND
+  }
+}
+function secondColumnStopSound() {
+  return {
+    type: PLAY_SECOND_STOP_SOUND
+  }
+}
+function thirdColumnStopSound() {
+  return {
+    type: PLAY_THIRD_STOP_SOUND
+  }
+}
+function resetStopSounds() {
+  return {
+    type: RESET_STOP_SOUNDS
+  }
+}
+
+function siglePlay(func) {
+  return dispatch => {
+    dispatch(func())
+    setTimeout(() => dispatch(resetStopSounds()), 300)
+  }
+}
+
+function startBonusSound() {
+  return {
+    type: PLAY_BONUS_SOUND
+  }
+}
+
+export function stopBonusSound() {
+  return {
+    type: STOP_BONUS_SOUND
+  }
+}
+
+// AFTER SPIN
 
 function checkWinners() {
   return (dispatch, getState) => {
@@ -180,10 +237,11 @@ function checkWinners() {
       console.log('quantity: ', quantity);
 
     if (quantity !== 0) {
-      const prize = quantity*rate*7
+      const prize = quantity*rate*10
       console.log('prize: ', prize)
       dispatch(changeBalance(prize))
       dispatch(changeLastPrize(prize))
+      dispatch(startBonusSound())
       dispatch(showModalPrize())
     }
   }
