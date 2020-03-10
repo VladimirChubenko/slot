@@ -30,12 +30,17 @@
     .Slot {
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-end;
       border: solid 2px #74467a;
       color: #fff;
       border-radius: 15px;
       background-size: cover;
       overflow: hidden;
+
+      h3 {
+        font-weight: 400;
+        color: #f37055;
+      }
     }
 
     .Spin {
@@ -123,6 +128,7 @@
         color: white;
         outline: none;
         background: rgba(46, 111, 159, 0.6);
+        cursor: pointer;
 
         &:active {
           border-color:#74467a;
@@ -151,6 +157,7 @@
       color: white;
       outline: none;
       background: rgba(46, 111, 159, 0.6);
+      cursor: pointer;
 
       &:hover {
         box-shadow: 4px 4px 4px rgba(255, 255, 255, 0.3);
@@ -218,11 +225,12 @@
 }
 .slot-exit-active {
   transform: translateY(0px);
-  transition: transform 300ms ease-out;
+  transition: transform 250ms ease-out;
 }
 
 .Enter {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
@@ -234,12 +242,17 @@
     position: relative;
     z-index: 0;
     padding: 10px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 25px;
 
     &:after {
       content: '';
+      border: 3px solid #fff;
       position: absolute;
-      top: calc(-1 * 5px);
-      left: calc(-1 * 4px);
+      top: calc(-1 * 7px);
+      left: calc(-1 * 6px);
       height: calc(100% + 4px * 2);
       width: calc(100% + 4px * 2);
       background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
@@ -247,6 +260,132 @@
       z-index: -1;
       animation: animatedgradient 5s ease alternate infinite;
       background-size: 300% 300%;
+    }
+  }
+
+  .button_about {
+    width: 250px;
+    padding: 14px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #fff;
+    font-weight: 600;
+    background-color: rgba(0, 0, 0, .5);
+    margin-bottom: 22px;
+  }
+
+  .about {
+    width: 100%;
+    max-width: 450px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .5);
+    text-align: left;
+    padding-left: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: auto;
+    max-height: 0;
+    opacity: 0;
+
+    h1 {
+      font-weight: 300;
+      text-align: center;
+    }
+
+    ul {
+      padding-left: 25px;
+      margin: 0;
+    }
+
+    .main > li {
+      padding-bottom: 10px;
+    }
+
+    a {
+      align-self: flex-end;
+      padding: 0 40px 10px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+
+  .info-enter {
+    opacity: 0;
+    max-height: 0;
+  }
+  .info-enter-active {
+    opacity: .5;
+    max-height: 500px;
+    transition: all 750ms ease-out;
+  }
+  .info-enter-done {
+    opacity: 1;
+    max-height: 1000px;
+    transition: all 750ms ease-out;
+  }
+  .info-exit {
+    opacity: 1;
+    max-height: 1000px;
+  }
+  .info-exit-active {
+    opacity: .5;
+    max-height: 500px;
+    transition: all 350ms ease-out;
+  }
+  .info-exit-done {
+    opacity: 0;
+    max-height: 0;
+    transition: all 350ms ease-out;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .App {
+    .wrapper {
+      .field {
+        width: auto;
+        grid-auto-rows: 118px;
+      }
+      .Panel {
+        width: auto;
+      }
+    } 
+    .Enter .about {
+      max-width: 284px;
+    }
+  } 
+}
+
+@media screen and (max-width: 375px) {
+  .App .wrapper {
+    .field {
+      padding: 25px 10px;
+      grid-auto-rows: 110px;
+    }
+    .Panel {
+      padding: 0 10px 25px;
+
+      .Info {
+        grid-template-columns: 30% 40% 30%;
+
+        .Rate input {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .App .wrapper {
+    .field {
+      grid-auto-rows: 93px;
     }
   }
 }

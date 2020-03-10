@@ -18,7 +18,7 @@ export function Slot(props) {
     >
     {props.spin
       ? <Spin />
-      : <div> {props.slot.winner ? props.slot.value : null} </div>
+      : <div> {props.slot.winner ? <h3>WIN</h3> : null} </div>
     }
     </CSSTransition>
   )
