@@ -96,14 +96,6 @@ function startSpin() {
   }
 } 
 
-function stopSpinAllColumns() {
-  return dispatch => {
-    dispatch(stopSpinFirstColumn())
-    dispatch(stopSpinSecondColumn())
-    dispatch(stopSpinThirdColumn())
-  }
-} 
-
 function stopSpinFirstColumn() {
   return {
     type: STOP_SPIN_FIRST_COLUMN

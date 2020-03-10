@@ -85,6 +85,7 @@
       color: yellow;
       z-index: 2;
       background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab);
+      background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       color: #0B2349;
