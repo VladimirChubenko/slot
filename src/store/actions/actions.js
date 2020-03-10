@@ -8,15 +8,15 @@ export function spin(rate, balance) {
     const allValues =  getState().field.allPossibilities
 
     let newField = [ 
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)],
-      allValues[Math.floor(Math.random() * 3)]
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)],
+      allValues[Math.floor(Math.random() * 5)]
     ]
     
     if (rate > balance) {
