@@ -4,14 +4,14 @@ import Spin from '../components/sound/spin'
 import Stop from '../components/sound/stop'
 import Bonus from '../components/sound/bonus'
 
-function Sound(props) {
+function Sound({spin1, spin2, spin3, bonus, stopSpining}) {
   return (
     <>
-      {props.spin1 ? <Stop /> : null}
-      {props.spin2 ? <Stop /> : null}
-      {props.spin3 ? <Stop /> : null}
-      {props.bonus ? <Bonus /> : null}
-      {props.stopSpining ? <Spin /> : null}
+      {spin1 ? <Stop /> : null}
+      {spin2 ? <Stop /> : null}
+      {spin3 ? <Stop /> : null}
+      {bonus ? <Bonus /> : null}
+      {stopSpining ? <Spin /> : null}
     </>
   )
 }
@@ -22,7 +22,7 @@ function mapStateToProps(state) {
     spin2: state.sound.stopSecondColumnSound,
     spin3: state.sound.stopThirdColumnSound,
     bonus: state.sound.bonusSound,
-    stopSpining: state.panel.spin.third
+    stopSpining: state.panel.rotating.third
   }
 }
 

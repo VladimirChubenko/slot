@@ -6,7 +6,7 @@ const initialState = {
   rate: 30,
   button: true,
   win: false,
-  spin: {
+  rotating: {
     first: false,
     second: false,
     third: false,
@@ -34,7 +34,7 @@ export default function panelReducer(state = initialState, action) {
     case START_SPIN:
       return {
         ...state,
-        spin: {
+        rotating: {
           first: true,
           second: true,
           third: true
@@ -43,24 +43,24 @@ export default function panelReducer(state = initialState, action) {
     case STOP_SPIN_FIRST_COLUMN:
       return {
         ...state,
-        spin: {
-          ...state.spin,
+        rotating: {
+          ...state.rotating,
           first: false
         }
       }    
     case STOP_SPIN_SECOND_COLUMN:
       return {
         ...state,
-        spin: {
-          ...state.spin,
+        rotating: {
+          ...state.rotating,
           second: false
         }
       }    
     case STOP_SPIN_THIRD_COLUMN:
       return {
         ...state,
-        spin: {
-          ...state.spin,
+        rotating: {
+          ...state.rotating,
           third: false
         }
       }

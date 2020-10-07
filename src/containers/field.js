@@ -3,19 +3,19 @@ import {connect} from 'react-redux'
 import {Slot} from '../components/slot'
 import Prize from '../components/prize'
 
-function Field(props) {
+function Field({slots, rotating, win}) {
   return (
     <div className="field">
-      {props.win ? <Prize /> : null }
-      <Slot slot={props.slots.first} spin={props.spin.first}/>
-      <Slot slot={props.slots.second} spin={props.spin.second}/>
-      <Slot slot={props.slots.third} spin={props.spin.third}/>
-      <Slot slot={props.slots.fourth} spin={props.spin.first}/>
-      <Slot slot={props.slots.fifth} spin={props.spin.second}/>
-      <Slot slot={props.slots.sixth} spin={props.spin.third}/>
-      <Slot slot={props.slots.seventh} spin={props.spin.first}/>
-      <Slot slot={props.slots.eighth} spin={props.spin.second}/>
-      <Slot slot={props.slots.ninth} spin={props.spin.third}/>
+      {win ? <Prize /> : null }
+      <Slot slot={slots.first} rotating={rotating.first}/>
+      <Slot slot={slots.second} rotating={rotating.second}/>
+      <Slot slot={slots.third} rotating={rotating.third}/>
+      <Slot slot={slots.fourth} rotating={rotating.first}/>
+      <Slot slot={slots.fifth} rotating={rotating.second}/>
+      <Slot slot={slots.sixth} rotating={rotating.third}/>
+      <Slot slot={slots.seventh} rotating={rotating.first}/>
+      <Slot slot={slots.eighth} rotating={rotating.second}/>
+      <Slot slot={slots.ninth} rotating={rotating.third}/>
   </div>
   )
 }
@@ -24,7 +24,7 @@ function Field(props) {
 function mapStateToProps(state) {
   return {
     slots: state.field.slots,
-    spin: state.panel.spin,
+    rotating: state.panel.rotating,
     win: state.panel.win
   }
 }

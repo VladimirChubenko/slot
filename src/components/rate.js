@@ -1,20 +1,20 @@
 import React from 'react'
 
-export function Rate(props) {
+export function Rate({rate, changeRate}) {
   return (
     <div className="Rate">
       <button 
         className="rate-btn"
-        onClick={() => props.rate > 10 ? props.changeRate(-5) : null}
+        onClick={() => rate > 10 ? changeRate(-5) : null}
       >-</button>
       <input 
         type="number"
-        value={props.rate}
+        value={rate}
         readOnly 
       />
       <button 
         className="rate-btn"
-        onClick={() => props.rate < 50 ? props.changeRate(5) : null}
+        onClick={() => rate < 50 ? changeRate(5) : null}
       >+</button>
     </div>
   )

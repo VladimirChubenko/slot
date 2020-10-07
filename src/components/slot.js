@@ -2,23 +2,23 @@ import React from 'react'
 import {Spin} from './spin'
 import {CSSTransition} from 'react-transition-group'
 
-export function Slot(props) { 
-  const slotClasses = ['Slot', props.slot.value]
+export function Slot({slot, rotating}) { 
+  const slotClasses = ['Slot', slot.value]
 
-  if (props.slot.winner) {
+  if (slot.winner) {
     slotClasses.push('Win')
   }
   
   return (
     <CSSTransition
-      in={props.spin}
+      in={rotating}
       timeout={250}
       classNames={'slot'}
       className={slotClasses.join(' ')}
     >
-    {props.spin
+    {rotating
       ? <Spin />
-      : <div> {props.slot.winner ? <h3>WIN</h3> : null} </div>
+      : <div> {slot.winner ? <h3>WIN</h3> : null} </div>
     }
     </CSSTransition>
   )

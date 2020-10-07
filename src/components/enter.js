@@ -2,14 +2,14 @@ import React, {useState} from 'react'
 import {CSSTransition} from 'react-transition-group'
 import About from './about'
 
-function Enter(props) {
+function Enter({start}) {
   const [about, setAbout] = useState(false)
 
   return (
     <div className="Enter">
       <div 
         className="button"
-        onClick={props.start}
+        onClick={start}
       >START</div>
       <div
         className="button_about"

@@ -1,4 +1,5 @@
 import React from 'react'
+import logo from '../assets/logo1.png'
 
 function About() {
   return (
@@ -22,10 +23,12 @@ function About() {
         <li className="item">SASS (SCSS)</li>
       </ul>
       <a
-        href="https://www.linkedin.com/in/volodymyr--chubenko/"
+        href="https://github.com/VladimirChubenko/slot"
         target="_blank"
         rel="noopener noreferrer"
-      >&lt;VC&gt;</a>
+      >
+        <img src={logo} alt="Logo GitHub" style={{width: '32px', paddingRight: '15px'}}/>
+      </a>
     </div>
   )
 }

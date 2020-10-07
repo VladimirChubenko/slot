@@ -1,10 +1,10 @@
 import React from 'react'
 
-export function Info(props) {
+export function Info({name, value}) {
   return (
     <div>
-      <h4>{props.name}</h4>
-      <h5>{props.value}</h5>
+      <h4>{name}</h4>
+      <h5>{value}</h5>
     </div>
   )
 }

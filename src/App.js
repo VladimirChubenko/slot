@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
-import './App.scss';
+import React, {useState} from 'react'
+import './App.scss'
 import Field from './containers/field'
 import Panel from './containers/panel'
 import Sound from './containers/sound'
 import Back from './components/sound/back'
 import Enter from './components/enter'
 
-
 function App() {
-  const [enter, setEnter] = useState(false)
+  const [isEnter, setIsEnter] = useState(false)
 
   return (
     <div className="App">
-      {enter
+      {isEnter
         ? <>
             <Back />
             <div className="wrapper">
@@ -21,7 +20,7 @@ function App() {
               <Sound />
             </div>
           </>
-        : <Enter start={() => setEnter(true)}/>
+        : <Enter start={() => setIsEnter(true)}/>
       }
     </div>
   );
